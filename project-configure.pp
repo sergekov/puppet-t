@@ -14,7 +14,7 @@ class baseline {
 
  file { "/etc/puppet/manifests": ensure => directory, owner => "root", group  => "root", mode  => "0755", } ->
 
- git::repo{'nginx-website-content':
+ git::repo{'manifests':
     path   => '/etc/puppet/manifests/puppet-t',
     source => 'https://github.com/sergekov/puppet-t',
     update => true
@@ -33,7 +33,7 @@ class { 'nginx':
 git::repo{'nginx-website-content':
  path   => '/var/www/puppet-test',
  source => 'https://github.com/puppetlabs/exercise-webpage',
- update => true
+ update => true,
  require => [ Class['::nginx'], Class['baseline'] ]
 } ->
 
