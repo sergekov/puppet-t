@@ -34,7 +34,7 @@ git::repo{'nginx-website-content':
  path   => '/var/www/puppet-test',
  source => 'https://github.com/puppetlabs/exercise-webpage',
  update => true,
- require => [ Class['::nginx'], Class['baseline'] ]
+ require => [ Class['baseline'] ]
 } ->
 
 nginx::resource::vhost { 'puppet-test.localhost':
