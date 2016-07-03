@@ -1,16 +1,8 @@
 include git
+include baseline
 
 
 class baseline {
- module { 'jproyo/git':
-   ensure   => present,
- } -> 
- module { 'jfryman/nginx':
-   ensure   => present,
- } -> 
- module { 'jfryman/selinux':
-   ensure   => present,
- } ->
  package { epel-release: ensure => latest } -> 
  package { 'puppetlabs-release':
      provider => 'rpm',
@@ -32,9 +24,11 @@ class baseline {
     mode => 'permissive',
  }
 
-} ->
+} 
 
-class { 'nginx': }
+class { 'nginx':
+  require => Class['::baseline']
+}
 
 git::repo{'nginx-website-content':
  path   => '/var/www/puppet-test',
