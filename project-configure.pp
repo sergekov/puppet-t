@@ -3,6 +3,7 @@ include baseline
 
 
 class baseline {
+ $base_packages = [ 'epel-release', 'hiera', 'vim-common', 'vim-enhanced', 'bash', 'yum', 'rpm', 'deltarpm', 'tree', 'puppet'  ]
  package { epel-release: ensure => latest } -> 
  package { 'puppetlabs-release':
      provider => 'rpm',
@@ -10,9 +11,11 @@ class baseline {
      source => "http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm"
  } ->
 
+ package { $base_packages: ensure => latest } ->
  package { puppet: ensure => latest } ->
 
  file { "/etc/puppet/manifests": ensure => directory, owner => "root", group  => "root", mode  => "0755", } ->
+ file { "/etc/puppet/hiera.yaml: ensure => link, target => '/etc/hiera.yaml' } ->
 
  git::repo{'manifests':
     path   => '/etc/puppet/manifests/puppet-t',
