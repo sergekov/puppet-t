@@ -70,7 +70,7 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
   config.vm.provision :shell do |shell|
-  shell.inline = "yum -q -y update; 
+  	shell.inline = "yum -q -y update; 
                   yum install -q -y epel-release; 
                   rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm ; 
                   yum -y -q install puppet; 
@@ -81,11 +81,8 @@ Vagrant.configure(2) do |config|
                   puppet module install rcoleman-puppet_module ; 
                   setenforce permissive; 
                   puppet resource file /etc/puppet/manifests ensure=directory ; 
-                  cd /etc/puppet/manifests ; if [ ! -d /etc/puppet/manifests/puppet-t ] ; then sudo git clone https://github.com/sergekov/puppet-t.git ; fi ;
+                  cd /etc/puppet/manifests ; if [ ! -d /etc/puppet/manifests/puppet-t ] ; then sudo git clone https://github.com/sergekov/puppet-t.git ; fi"
 
   end
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = "puppet/manifests"
-     puppet.manifest_file = "project-configure.pp"
-  end
+
 end
