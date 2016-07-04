@@ -33,8 +33,7 @@ class { 'nginx':
 
 git::repo{'nginx-website-content':
  path   => '/var/www/puppet-test',
-# source => 'https://github.com/puppetlabs/exercise-webpage',
- source => 'https://github.com/sergekov/exercise-webpage.git',
+ source => 'https://github.com/puppetlabs/exercise-webpage',
  update => true,
  require => [ Class['baseline'] ]
 } ->
